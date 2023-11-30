@@ -1,0 +1,35 @@
+version: '3.6'
+services:
+  db:
+    restart: always
+    image: mysql:8
+    container_name: mysql-8
+    #secrets:
+    #- mysql-pass
+    #- db_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456789
+      #- MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-pass
+      #marcus/123456 for root food13/123456 for wordpress
+    volumes:
+      - ./wp_sql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: food13
+      WORDPRESS_DB_PASSWORD: 123456
+      WORDPRESS_DB_NAME: food13
+    volumes:
+      - ./wordpress:/var/www/html

@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+    ServerName localhost
+
+    ProxyPass "/food13/" "http://localhost:8081/"
+    ProxyPassReverse "/food13/" "http://localhost:8081/"
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
